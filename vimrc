@@ -354,7 +354,7 @@ if has('gui_running')
     set guioptions-=r  "right scrollbar
     set guioptions-=L  "left scrollbar
     set guifont=Sarasa\ Term\ Slab\ SC:h11
-    winpos 450 250
+    winpos 450 150
     winsize 170 35
 else
     set t_Co=256
