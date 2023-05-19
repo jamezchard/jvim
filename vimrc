@@ -85,7 +85,7 @@ Plug 'ap/vim-buftabline'
 Plug 'lifepillar/vim-solarized8'
 let g:lightline = {'colorscheme': 'one'}
 " 只有一个 buffer 时不显示 tab
-let g:buftabline_show = 1
+let g:buftabline_show = 0
 nnoremap [b :bp<cr>
 nnoremap ]b :bn<cr>
 " }}}
@@ -354,8 +354,8 @@ if has('gui_running')
     set guioptions-=r  "right scrollbar
     set guioptions-=L  "left scrollbar
     set guifont=Sarasa\ Term\ Slab\ SC:h11
-    winpos 450 150
-    winsize 170 35
+    winpos 700 200
+    winsize 128 36
 else
     set t_Co=256
 endif
