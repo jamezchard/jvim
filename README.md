@@ -1,2 +1,2 @@
-* fsz-vim
+# fsz-vim
 my vim configs.
