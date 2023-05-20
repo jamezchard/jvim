@@ -83,7 +83,7 @@ call plug#begin('~/fsz.plug')
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'lifepillar/vim-solarized8'
-let g:lightline = {'colorscheme': 'one'}
+let g:lightline = {'colorscheme': 'wombat'}
 " 只有一个 buffer 时不显示 tab
 let g:buftabline_show = 0
 nnoremap [b :bp<cr>
@@ -344,9 +344,7 @@ endfunction
 
 " last settings {{{
 
-colorscheme delek
-syntax enable
-call ToggleDarkLight()
+" call ToggleDarkLight()
 
 if has('gui_running')
     set guioptions-=m  "menu bar
@@ -359,5 +357,9 @@ if has('gui_running')
 else
     set t_Co=256
 endif
+
+colorscheme slate "delek
+set background=dark
+syntax enable
 
 " }}}
