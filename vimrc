@@ -339,7 +339,7 @@ function! AutoDarkLight()
 endfunction
 " }}}
 
-" 切换颜色
+" 切换颜色 {{{
 let g:colors = getcompletion('', 'color')
 func! NextColors()
     let idx = index(g:colors, g:colors_name)
@@ -349,11 +349,14 @@ func! PrevColors()
     let idx = index(g:colors, g:colors_name)
     return (idx - 1 < 0 ? g:colors[-1] : g:colors[idx - 1])
 endfunc
-nnoremap <leader>cn :exe "colo " .. NextColors()<CR>
-nnoremap <leader>cp :exe "colo " .. PrevColors()<CR>
+nnoremap <leader>ct :exe "colo " .. NextColors()<CR>
+nnoremap <leader>cT :exe "colo " .. PrevColors()<CR>
+" }}}
 
+" VisualSeach {{{
 " 选中区域搜索放到 quickfix 中 https://stackoverflow.com/a/21487300/7949687
 command! -range -nargs=+ VisualSeach cgetexpr []|<line1>,<line2>g/<args>/caddexpr expand("%") . ":" . line(".") .  ":" . getline(".")
+" }}}
 
 " }}}
 
@@ -369,12 +372,12 @@ if has('gui_running')
     set guioptions-=L  "left scrollbar
     set guifont=Sarasa\ Term\ Slab\ SC:h11
     winpos 700 200
-    winsize 128 36
+    winsize 136 36
 else
     set t_Co=256
 endif
 
-colorscheme sorbet
+colorscheme retrobox
 set background=dark
 syntax enable
 
