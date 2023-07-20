@@ -1,5 +1,6 @@
 " basic settings {{{
 set encoding=utf-8 " 设置字符编码
+set ff=unix " 设置 file format 为 unix
 set autoread " 自动载入外部修改
 set hidden " 允许被修改的 buffer 放到后台
 set number " relativenumber
@@ -21,6 +22,8 @@ set backspace=2
 set hlsearch
 " 开启增量搜索
 set incsearch
+" 打通系统剪贴板和 unnamed
+set clipboard=unnamed
 
 augroup filetype_vim " vimrc 内按 marker 折叠
     autocmd!
@@ -77,7 +80,11 @@ tnoremap <c-d> <del>
 
 
 " plugins {{{
-call plug#begin('~/fsz.plug')
+if has('unix')
+    call plug#begin('~/vimplug.unix')
+else
+    call plug#begin('~/vimplug.win')
+endif
 
 " theme buffer tab {{{
 Plug 'itchyny/lightline.vim'
@@ -139,7 +146,7 @@ Plug 'mnishz/colorscheme-preview.vim'
 " }}}
 
 " vimspector {{{
-if has('unix')
+if has('unix') && has('python3')
     Plug 'puremourning/vimspector'
     let g:vimspector_enable_mappings = 'HUMAN'
 endif
