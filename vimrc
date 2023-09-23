@@ -312,6 +312,15 @@ augroup END
 Plug 'dstein64/vim-startuptime'
 " }}}
 
+" vim-yaml-folds yaml 折叠 {{{
+Plug 'pedrohdz/vim-yaml-folds'
+" }}}
+"
+
+" 看 csv 的插件 {{{
+Plug 'chrisbra/csv.vim'
+" }}}
+
 call plug#end()
 " }}}
 
@@ -377,8 +386,9 @@ if has('gui_running')
     set guioptions-=T  "toolbar
     set guioptions-=r  "right scrollbar
     set guioptions-=L  "left scrollbar
-    set guifont=Sarasa\ Term\ Slab\ SC:h11
-    winpos 700 200
+    " set guifont=Sarasa\ Term\ Slab\ SC:h12
+    set guifont=Cascadia\ Code:h11
+    winpos 530 240
     winsize 136 36
 else
     set t_Co=256
