@@ -315,10 +315,29 @@ Plug 'dstein64/vim-startuptime'
 " vim-yaml-folds yaml 折叠 {{{
 Plug 'pedrohdz/vim-yaml-folds'
 " }}}
-"
 
 " 看 csv 的插件 {{{
 Plug 'chrisbra/csv.vim'
+" }}}
+
+" simplified modern alternative to easymotion {{{
+Plug 'monkoose/vim9-stargate'
+" for the start of a word
+noremap <space>w <Cmd>call stargate#OKvim('\<')<CR>
+" for the start of a line
+noremap <space>l <Cmd>call stargate#OKvim('\_^')<CR>
+" }}}
+
+" automatic window resizing {{{
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
+let g:lens#disabled = 1
+let g:lens#animate = 1
+let g:lens#height_resize_max = 60
+let g:lens#height_resize_min = 20
+let g:lens#width_resize_max = 120
+let g:lens#width_resize_min = 40
+let g:lens#disabled_filetypes = ['nerdtree', 'fzf']
 " }}}
 
 call plug#end()
@@ -382,14 +401,17 @@ command! -range -nargs=+ VisualSeach cgetexpr []|<line1>,<line2>g/<args>/caddexp
 " call ToggleDarkLight()
 
 if has('gui_running')
+    set linespace=0
     set guioptions-=m  "menu bar
     set guioptions-=T  "toolbar
     set guioptions-=r  "right scrollbar
     set guioptions-=L  "left scrollbar
-    " set guifont=Sarasa\ Term\ Slab\ SC:h12
-    set guifont=Cascadia\ Code:h11
-    winpos 530 240
-    winsize 136 36
+    set guifont=Sarasa\ Term\ Slab\ SC:h12
+    " set guifont=Cascadia\ Code:h11
+    " set guifont=LXGW\ Wenkai\ Mono:h12
+    " 中文测试
+    winpos 650 250
+    winsize 128 32
 else
     set t_Co=256
 endif
