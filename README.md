@@ -1,2 +1,3 @@
-# fsz-vim
-my vim configs.
+# JVim
+
+My vim configs.
