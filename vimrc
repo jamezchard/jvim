@@ -232,8 +232,8 @@ set guioptions-=r  "right scrollbar
 set guioptions-=L  "left scrollbar
 set guifont=Maple\ Mono\ NF\ CN:h11
 set t_Co=256
-winpos 655 100
-winsize 128 48
+winpos 560 90
+winsize 160 64
 
 set background=dark
 colorscheme retrobox
