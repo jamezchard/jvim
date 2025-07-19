@@ -1,13 +1,9 @@
 " basic settings {{{
 
-" source 当前目录下别的文件
-let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-command! -nargs=1 IncScript exec 'source '. fnameescape(s:home."/<args>")
-
 set autoread " 自动载入外部修改
 set noswapfile " 关闭交换文件
 set hidden " 允许被修改的 buffer 放到后台
-set number " relativenumber
+set number
 set cursorline " 高亮当前行
 
 set splitright " vsp 新窗口放右边
@@ -42,10 +38,6 @@ augroup END
 " open and source vimrc file
 nnoremap <leader>ev :edit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" 打开 terminal use c-\c-n to return to normal mode
-nnoremap <silent> <leader>tl :vert term<cr>
-nnoremap <silent> <leader>tj :term<cr>
 
 " 关闭搜索高亮，下次搜索还会高亮
 nnoremap <silent> <esc> :nohlsearch<cr>
@@ -88,13 +80,43 @@ nnoremap ]b :bn<cr>
 " my functions and commands {{{
 
 " 在 visual 区域做局部搜索, 结果放到 quickfix 中. https://stackoverflow.com/a/21487300/7949687
-command! -range -nargs=+ VisualSeach cgetexpr []|<line1>,<line2>g/<args>/caddexpr expand("%") . ":" . line(".") .  ":" . getline(".")
+command! -range -nargs=+ VisualSearch cgetexpr []|<line1>,<line2>g/<args>/caddexpr expand("%") . ":" . line(".") .  ":" . getline(".")
+
+augroup ToggleTermInsert
+  autocmd!
+  autocmd TerminalWinOpen * silent! exe "normal! i"
+  autocmd BufEnter * if &buftype ==# "terminal" && mode() ==# "n" | silent! exe "normal! i" | endif
+augroup END
+
+function ToggleTerm() abort
+  const terms = term_list()
+  if empty(terms)
+    " no terminals, make one
+    botright terminal powershell
+  else
+    const term = terms[0]
+    if bufwinnr(term) < 0
+      " terminal hidden, open it
+      execute 'botright sbuffer' term
+    else
+      " terminal open, close all windows showing it in the tab
+      for win_id in win_findbuf(term)
+        let win_nr = win_id2win(win_id)
+        if win_nr > 0
+          execute win_nr 'close'
+        endif
+      endfor
+    endif
+  endif
+endfunction
+nnoremap <silent> <leader>` :call ToggleTerm()<cr>
+tnoremap <silent> <leader>` <c-w>N:call ToggleTerm()<cr>
 
 " }}}
 
 " plugins {{{
 
-call plug#begin('$VIM/plugins')
+call plug#begin('~/vim-plugins')
 
 " lightline {{{
 Plug 'itchyny/lightline.vim'
@@ -128,9 +150,9 @@ let g:buftabline_show = 1 " 只有一个 buffer 时不显示 tab
 " }}}
 
 " vim-floaterm {{{
-Plug 'voldikss/vim-floaterm'
-nnoremap <silent> <m-x> :FloatermToggle<cr>
-tnoremap <silent> <m-x> <c-\><c-n>:FloatermToggle<cr>
+" Plug 'voldikss/vim-floaterm'
+" nnoremap <silent> <m-x> :FloatermToggle<cr>
+" tnoremap <silent> <m-x> <c-w>N:FloatermToggle<cr>
 " nnoremap <silent> <m-c> :FloatermNew<cr>
 " tnoremap <silent> <m-c> <c-\><c-n>:FloatermNew<cr>
 " nnoremap <silent> <m-v> :FloatermNext<cr>
@@ -186,6 +208,8 @@ nnoremap <c-x><c-r> :LeaderfMru<cr>
 nnoremap <leader>ff :LeaderfFunction<cr>
 nnoremap <leader>ft :LeaderfBufTag<cr>
 nnoremap <leader>tt :LeaderfTag<cr>
+nnoremap <leader>rg :Leaderf rg<cr>
+nnoremap <leader>ri :LeaderfRgInteractive<cr>
 
 " }}}
 
@@ -209,7 +233,7 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 " 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
-   silent! call mkdir(s:vim_tags, 'p')
+  silent! call mkdir(s:vim_tags, 'p')
 endif
 
 Plug 'preservim/tagbar'
@@ -225,15 +249,17 @@ call plug#end()
 
 " gui settings {{{
 
-set linespace=0
-set guioptions-=m  "menu bar
-set guioptions-=T  "toolbar
-set guioptions-=r  "right scrollbar
-set guioptions-=L  "left scrollbar
-set guifont=Maple\ Mono\ NF\ CN:h11
-set t_Co=256
-winpos 560 90
-winsize 160 64
+if has('gui_running')
+  set linespace=0
+  set guioptions-=m  "menu bar
+  set guioptions-=T  "toolbar
+  set guioptions-=r  "right scrollbar
+  set guioptions-=L  "left scrollbar
+  set guifont=Maple\ Mono\ NL\ NF\ CN:h11
+  set t_Co=256
+  winpos 555 300
+  winsize 160 40
+endif
 
 set background=dark
 colorscheme retrobox
