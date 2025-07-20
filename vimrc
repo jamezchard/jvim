@@ -39,6 +39,11 @@ augroup END
 nnoremap <leader>ev :edit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" explore root dir
+nnoremap <silent> <leader>E :Explore<cr>
+" explore current file dir
+nnoremap <silent> <leader>ee :exe "Explore" getcwd()<cr>
+
 " 关闭搜索高亮，下次搜索还会高亮
 nnoremap <silent> <esc> :nohlsearch<cr>
 
