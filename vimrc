@@ -246,9 +246,11 @@ nnoremap <leader>tb :TagbarToggle<CR>
 
 Plug 'girishji/vimcomplete'
 
-call plug#end()
+Plug 'github/copilot.vim'
 
 " }}}
+
+call plug#end()
 
 " }}}
 
