@@ -127,26 +127,29 @@ call plug#begin('~/vim-plugins')
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
       \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'modified': 'CheckModified'
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
+      \}
+" let g:lightline = {
+"       \ 'colorscheme': 'wombat',
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'modified': 'CheckModified'
+"       \ },
+"       \ 'separator': { 'left': '', 'right': '' },
+"       \ 'subseparator': { 'left': '', 'right': '' }
+"       \ }
 
-function! CheckModified()
-  if &readonly
-    return ''
-  elseif &modified
-    return '●'
-  else
-    return '✓'
-  endif
-endfunction
+" function! CheckModified()
+"   if &readonly
+"     return ''
+"   elseif &modified
+"     return '●'
+"   else
+"     return '✓'
+"   endif
+" endfunction
 " }}}
 
 " tabline {{{
@@ -245,6 +248,7 @@ Plug 'preservim/tagbar'
 nnoremap <leader>tb :TagbarToggle<CR>
 
 Plug 'girishji/vimcomplete'
+let g:vimcomplete_do_mapping = 0
 
 Plug 'github/copilot.vim'
 
@@ -266,6 +270,9 @@ if has('gui_running')
   set t_Co=256
   winpos 555 300
   winsize 160 40
+else
+  set t_Co=256
+  set termguicolors
 endif
 
 set background=dark
